@@ -1,0 +1,155 @@
+@font-face {
+  font-family: 'Chillin on Sunday';
+  src: url('/fonts/ChillinOnSunday.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Childer';
+  src: url('/fonts/Childer.woff2') format('woff2'),
+       url('/fonts/Childer.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    background-color: #F4F2F2;
+    color: #1e241b;
+    overflow-x: hidden;
+  }
+
+  /* Custom organic scrollbar for warm yellowish off-white theme */
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #E0DCDC;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: #73c98b;
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: #15913a;
+  }
+}
+
+@layer utilities {
+  .glass-panel {
+    background: rgba(255, 253, 247, 0.95);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(21, 145, 58, 0.22);
+  }
+
+  .glass-card {
+    background: #FFFFFF;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid #DCD7D7;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .glass-card:hover {
+    background: #ffffff;
+    border-color: rgba(21, 145, 58, 0.4);
+    box-shadow: 0 10px 28px -6px rgba(21, 145, 58, 0.12);
+  }
+
+  /* Chillin on Sunday Title Lettering */
+  .verda-3d-text {
+    font-family: 'Chillin on Sunday', cursive, sans-serif;
+    letter-spacing: 0.03em;
+    display: inline-block;
+    padding-bottom: 0.25em;
+    padding-right: 0.35em;
+    line-height: 1.25;
+    background: linear-gradient(135deg, #0d381c 0%, #15803d 50%, #052e16 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    filter: drop-shadow(0 2px 8px rgba(21, 128, 61, 0.15));
+  }
+
+  .leaf-border {
+    border-radius: 20px 4px 20px 4px;
+  }
+  
+  .leaf-border-reverse {
+    border-radius: 4px 20px 4px 20px;
+  }
+}
+
+/* Organic Background leaf pattern */
+.bg-leaf-pattern {
+  background-size: 60px 60px;
+  background-image: 
+    radial-gradient(circle at 10px 10px, rgba(21, 145, 58, 0.06) 2px, transparent 2px),
+    radial-gradient(circle at 40px 40px, rgba(132, 204, 22, 0.06) 2px, transparent 2px);
+}
+
+/* Animated Water Stream & Droplet Shower */
+@keyframes waterStream {
+  0% {
+    stroke-dashoffset: 40;
+    opacity: 0.5;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0.7;
+  }
+}
+
+.animate-water-stream {
+  stroke-dasharray: 8, 4;
+  animation: waterStream 0.4s linear infinite;
+}
+
+@keyframes soilRipple {
+  0% {
+    transform: scale(0.6);
+    opacity: 0.9;
+  }
+  100% {
+    transform: scale(1.8);
+    opacity: 0;
+  }
+}
+
+.animate-soil-ripple {
+  animation: soilRipple 0.6s cubic-bezier(0.2, 0.8, 0.4, 1) infinite;
+}
+
+@keyframes dropletShower {
+  0% {
+    transform: translateY(0px) scale(0.8);
+    opacity: 0;
+  }
+  20% {
+    opacity: 1;
+    transform: translateY(12px) scale(1.1);
+  }
+  85% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(85px) scale(0.6);
+    opacity: 0;
+  }
+}
+
+.animate-droplet-shower {
+  animation: dropletShower 0.65s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
