@@ -110,9 +110,10 @@ export default function AgricultureIntro() {
                   <div 
                     className={`absolute z-20 transition-all duration-500 ease-out pointer-events-none ${
                       watering 
-                        ? 'top-8 left-12 sm:left-14 -rotate-[34deg] scale-110' 
-                        : 'top-6 left-4 sm:left-8 -rotate-6 animate-float-slow'
+                        ? 'top-8 left-1/2 -translate-x-[68px] -rotate-[36deg] scale-110' 
+                        : 'top-6 left-1/2 -translate-x-[95px] -rotate-6 animate-float-slow'
                     }`}
+                    style={{ transformOrigin: '30% 65%' }}
                   >
                     <svg viewBox="0 0 100 80" className="w-20 h-16 drop-shadow-lg">
                       <path d="M25 30 L65 30 L60 70 L30 70 Z" fill="#d07849" stroke="#783827" strokeWidth="2.5" />
@@ -122,39 +123,50 @@ export default function AgricultureIntro() {
                       {/* Handle */}
                       <path d="M25 35 Q8 40 8 55 Q8 68 30 68" fill="none" stroke="#783827" strokeWidth="4" strokeLinecap="round" />
                     </svg>
-
-                    {/* Water Flow Stream & Droplets Pouring From Spout */}
-                    {watering && (
-                      <div className="absolute top-[32px] left-[78px] w-28 h-36 z-30 pointer-events-none">
-                        <svg viewBox="0 0 90 120" className="w-full h-full overflow-visible">
-                          <defs>
-                            <linearGradient id="waterStreamGrad" x1="0%" y1="0%" x2="0%" y2="100%">
-                              <stop offset="0%" stopColor="#38bdf8" stopOpacity="0.95" />
-                              <stop offset="50%" stopColor="#0284c7" stopOpacity="0.85" />
-                              <stop offset="100%" stopColor="#0369a1" stopOpacity="0.4" />
-                            </linearGradient>
-                            <linearGradient id="waterDropGlow" x1="0%" y1="0%" x2="0%" y2="100%">
-                              <stop offset="0%" stopColor="#bae6fd" stopOpacity="1" />
-                              <stop offset="100%" stopColor="#38bdf8" stopOpacity="0.7" />
-                            </linearGradient>
-                          </defs>
-
-                          {/* Dynamic Translucent Water Streams */}
-                          <path d="M4 0 Q10 40 22 105" stroke="url(#waterStreamGrad)" strokeWidth="3" fill="none" strokeLinecap="round" className="animate-water-stream" />
-                          <path d="M8 2 Q16 45 30 108" stroke="url(#waterStreamGrad)" strokeWidth="2.5" fill="none" strokeLinecap="round" className="animate-water-stream" style={{ animationDelay: '100ms' }} />
-                          <path d="M0 2 Q6 38 14 102" stroke="url(#waterStreamGrad)" strokeWidth="2" fill="none" strokeLinecap="round" className="animate-water-stream" style={{ animationDelay: '200ms' }} />
-                          <path d="M12 4 Q22 50 38 110" stroke="url(#waterStreamGrad)" strokeWidth="1.8" fill="none" strokeLinecap="round" className="animate-water-stream" style={{ animationDelay: '150ms' }} />
-
-                          {/* Cascading Water Droplets */}
-                          <circle cx="6" cy="18" r="3.2" fill="url(#waterDropGlow)" className="animate-droplet-shower" style={{ animationDelay: '0ms' }} />
-                          <circle cx="18" cy="12" r="2.8" fill="url(#waterDropGlow)" className="animate-droplet-shower" style={{ animationDelay: '120ms' }} />
-                          <circle cx="2" cy="22" r="2.4" fill="url(#waterDropGlow)" className="animate-droplet-shower" style={{ animationDelay: '240ms' }} />
-                          <circle cx="28" cy="15" r="3" fill="url(#waterDropGlow)" className="animate-droplet-shower" style={{ animationDelay: '360ms' }} />
-                          <circle cx="12" cy="20" r="2.6" fill="url(#waterDropGlow)" className="animate-droplet-shower" style={{ animationDelay: '480ms' }} />
-                        </svg>
-                      </div>
-                    )}
                   </div>
+
+                  {/* Water Flow Stream & Droplets Pouring Directly Down Onto the Plant */}
+                  {watering && (
+                    <div className="absolute top-[72px] left-1/2 -translate-x-1/2 w-36 h-48 z-25 pointer-events-none flex justify-center">
+                      <svg viewBox="0 0 100 160" className="w-full h-full overflow-visible">
+                        <defs>
+                          <linearGradient id="waterStreamGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" stopColor="#38bdf8" stopOpacity="0.95" />
+                            <stop offset="50%" stopColor="#0284c7" stopOpacity="0.85" />
+                            <stop offset="100%" stopColor="#0369a1" stopOpacity="0.3" />
+                          </linearGradient>
+                          <linearGradient id="waterDropGlow" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" stopColor="#bae6fd" stopOpacity="1" />
+                            <stop offset="100%" stopColor="#38bdf8" stopOpacity="0.8" />
+                          </linearGradient>
+                          <filter id="waterGlowFilter" x="-20%" y="-20%" width="140%" height="140%">
+                            <feGaussianBlur stdDeviation="1" result="blur" />
+                            <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                          </filter>
+                        </defs>
+
+                        {/* Core center water stream falling right onto the seed / stem */}
+                        <path d="M50 0 Q50 65 50 145" stroke="url(#waterStreamGrad)" strokeWidth="3.5" fill="none" strokeLinecap="round" className="animate-water-stream" filter="url(#waterGlowFilter)" />
+                        
+                        {/* Left & Right spreading streams to water the full plant & soil */}
+                        <path d="M48 2 Q42 60 38 140" stroke="url(#waterStreamGrad)" strokeWidth="2.5" fill="none" strokeLinecap="round" className="animate-water-stream" style={{ animationDelay: '80ms' }} />
+                        <path d="M52 2 Q58 60 62 142" stroke="url(#waterStreamGrad)" strokeWidth="2.5" fill="none" strokeLinecap="round" className="animate-water-stream" style={{ animationDelay: '160ms' }} />
+                        
+                        {/* Outer spray mist streams */}
+                        <path d="M46 4 Q35 55 28 135" stroke="url(#waterStreamGrad)" strokeWidth="1.8" fill="none" strokeLinecap="round" className="animate-water-stream" style={{ animationDelay: '120ms' }} />
+                        <path d="M54 4 Q65 55 72 137" stroke="url(#waterStreamGrad)" strokeWidth="1.8" fill="none" strokeLinecap="round" className="animate-water-stream" style={{ animationDelay: '200ms' }} />
+
+                        {/* Cascading Water Droplets falling straight down into foliage and soil */}
+                        <circle cx="50" cy="12" r="3.2" fill="url(#waterDropGlow)" className="animate-droplet-shower" style={{ animationDelay: '0ms' }} />
+                        <circle cx="44" cy="20" r="2.8" fill="url(#waterDropGlow)" className="animate-droplet-shower" style={{ animationDelay: '90ms' }} />
+                        <circle cx="56" cy="16" r="2.8" fill="url(#waterDropGlow)" className="animate-droplet-shower" style={{ animationDelay: '180ms' }} />
+                        <circle cx="50" cy="30" r="3.4" fill="url(#waterDropGlow)" className="animate-droplet-shower" style={{ animationDelay: '270ms' }} />
+                        <circle cx="38" cy="24" r="2.4" fill="url(#waterDropGlow)" className="animate-droplet-shower" style={{ animationDelay: '360ms' }} />
+                        <circle cx="62" cy="22" r="2.6" fill="url(#waterDropGlow)" className="animate-droplet-shower" style={{ animationDelay: '450ms' }} />
+                        <circle cx="52" cy="38" r="3.0" fill="url(#waterDropGlow)" className="animate-droplet-shower" style={{ animationDelay: '540ms' }} />
+                      </svg>
+                    </div>
+                  )}
 
                   {/* Growing Potted Plant */}
                   <div className="relative z-10 flex flex-col items-center">
@@ -174,8 +186,11 @@ export default function AgricultureIntro() {
                       )}
 
                       {growthStage === 0 && (
-                        <div className="w-10 h-10 flex items-center justify-center text-earth-800 animate-pulse">
+                        <div className="relative w-10 h-10 flex items-center justify-center text-earth-800 animate-pulse">
                           <span className="text-2xl drop-shadow-sm">🌰</span>
+                          {watering && (
+                            <span className="absolute -top-1 left-2 text-xs animate-ping">💧</span>
+                          )}
                         </div>
                       )}
 
@@ -231,8 +246,8 @@ export default function AgricultureIntro() {
                         <div className="absolute top-[8px] left-1/2 -translate-x-1/2 w-14 h-4 pointer-events-none flex items-center justify-center">
                           <span className="absolute w-12 h-3.5 rounded-[100%] border-2 border-cyan-400 bg-cyan-300/30 animate-soil-ripple" />
                           <span className="absolute w-8 h-2.5 rounded-[100%] border border-cyan-200 bg-cyan-200/20 animate-soil-ripple" style={{ animationDelay: '200ms' }} />
-                          <span className="absolute -top-2 left-3 w-1.5 h-1.5 rounded-full bg-cyan-300 animate-ping" />
-                          <span className="absolute -top-2.5 right-3 w-1.5 h-1.5 rounded-full bg-cyan-200 animate-ping" style={{ animationDelay: '150ms' }} />
+                          <span className="absolute -top-2 left-3 w-1.5 h-1.5 rounded-full bg-cyan-300 animate-splash-burst" />
+                          <span className="absolute -top-2.5 right-3 w-1.5 h-1.5 rounded-full bg-cyan-200 animate-splash-burst" style={{ animationDelay: '150ms' }} />
                         </div>
                       )}
                     </div>
